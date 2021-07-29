@@ -12,5 +12,7 @@ v1.0
 interface IPresenter {
 
     fun init()
-    fun count(buttonId: Int)
+    fun count1()
+    fun count2()
+    fun count3()
 }
