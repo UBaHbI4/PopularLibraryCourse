@@ -8,9 +8,9 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
-import softing.ubah4ukdev.popularlibrary.presenter.UsersPresenter
-import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersRVAdapter
-import softing.ubah4ukdev.popularlibrary.views.IUsersView
+import softing.ubah4ukdev.popularlibrary.presenter.users.IUsersView
+import softing.ubah4ukdev.popularlibrary.presenter.users.UsersPresenter
+import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentUsersBinding
 
 /****
@@ -33,7 +33,7 @@ class UsersFragment : MvpAppCompatFragment(), IUsersView, IBackButtonListener {
             App.router
         )
     }
-    var adapter: UsersRVAdapter? = null
+    var adapter: UsersAdapter? = null
 
     private var vb: FragmentUsersBinding? = null
 
@@ -53,7 +53,7 @@ class UsersFragment : MvpAppCompatFragment(), IUsersView, IBackButtonListener {
 
     override fun init() {
         vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRVAdapter(presenter.usersListPresenter)
+        adapter = UsersAdapter(presenter.usersListPresenter)
         vb?.rvUsers?.adapter = adapter
     }
 

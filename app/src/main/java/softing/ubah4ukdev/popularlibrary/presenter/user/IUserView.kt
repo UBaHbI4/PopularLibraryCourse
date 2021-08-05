@@ -1,8 +1,9 @@
-package softing.ubah4ukdev.popularlibrary.views
+package softing.ubah4ukdev.popularlibrary.presenter.user
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
 /****
 Project PopularLibrary
@@ -14,7 +15,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface IUsersView : MvpView {
-    fun init()
-    fun updateList()
+interface IUserView : MvpView {
+
+    fun showUser(user: GithubUser)
 }

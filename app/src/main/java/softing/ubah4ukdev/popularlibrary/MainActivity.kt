@@ -6,9 +6,9 @@ import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App.Navigation.navigatorHolder
 import softing.ubah4ukdev.popularlibrary.App.Navigation.router
-import softing.ubah4ukdev.popularlibrary.presenter.MainPresenter
+import softing.ubah4ukdev.popularlibrary.presenter.main.IMainView
+import softing.ubah4ukdev.popularlibrary.presenter.main.MainPresenter
 import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
-import softing.ubah4ukdev.popularlibrary.views.IMainView
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.ActivityMainBinding
 

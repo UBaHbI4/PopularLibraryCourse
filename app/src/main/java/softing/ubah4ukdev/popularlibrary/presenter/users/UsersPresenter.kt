@@ -1,11 +1,13 @@
-package softing.ubah4ukdev.popularlibrary.presenter
+package softing.ubah4ukdev.popularlibrary.presenter.users
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
-import softing.ubah4ukdev.popularlibrary.views.IUserItemView
-import softing.ubah4ukdev.popularlibrary.views.IUsersView
+import softing.ubah4ukdev.popularlibrary.presenter.IUserListPresenter
+import softing.ubah4ukdev.popularlibrary.presenter.user.UserScreen
+import softing.ubah4ukdev.popularlibrary.ui.IUserItemView
 
 /****
 Project PopularLibrary
@@ -39,14 +41,16 @@ class UsersPresenter(
         super.onFirstViewAttach()
         viewState.init()
         loadData()
-
-        usersListPresenter.itemClickListener = { itemView ->
-            //TODO: переход на экран пользователя c помощью router.navigateTo
-        }
     }
 
-    fun loadData() {
+    private fun loadData() {
         val users = mockUsersRepositoryImpl.users()
+
+        usersListPresenter.itemClickListener = { itemView ->
+            Log.d("popLibDEBUG", itemView.toString())
+            router.navigateTo(UserScreen(users[itemView.pos]).create())
+        }
+
         usersListPresenter.users.addAll(users)
         viewState.updateList()
     }
