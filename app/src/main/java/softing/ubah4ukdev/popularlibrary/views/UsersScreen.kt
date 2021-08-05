@@ -1,0 +1,17 @@
+package softing.ubah4ukdev.popularlibrary.views
+
+import com.github.terrakok.cicerone.androidx.FragmentScreen
+import softing.ubah4ukdev.popularlibrary.ui.UsersFragment
+
+/****
+Project PopularLibrary
+Package softing.ubah4ukdev.popularlibrary.views
+
+Created by Ivan Sheynmaer
+
+2021.08.05
+v1.0
+ */
+object UsersScreen {
+    fun create() = FragmentScreen { UsersFragment.newInstance() }
+}
