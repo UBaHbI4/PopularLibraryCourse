@@ -1,9 +1,8 @@
 package softing.ubah4ukdev.popularlibrary.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App
@@ -11,6 +10,7 @@ import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryIm
 import softing.ubah4ukdev.popularlibrary.presenter.users.IUsersView
 import softing.ubah4ukdev.popularlibrary.presenter.users.UsersPresenter
 import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
+import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentUsersBinding
 
 /****
@@ -22,9 +22,10 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-class UsersFragment : MvpAppCompatFragment(), IUsersView, IBackButtonListener {
+class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
+    IBackButtonListener {
     companion object {
-        fun newInstance() = UsersFragment()
+        fun newInstance(): Fragment = UsersFragment()
     }
 
     val presenter: UsersPresenter by moxyPresenter {
@@ -35,26 +36,12 @@ class UsersFragment : MvpAppCompatFragment(), IUsersView, IBackButtonListener {
     }
     var adapter: UsersAdapter? = null
 
-    private var vb: FragmentUsersBinding? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) =
-        FragmentUsersBinding.inflate(inflater, container, false).also {
-            vb = it
-        }.root
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        vb = null
-    }
+    private val vb: FragmentUsersBinding by viewBinding()
 
     override fun init() {
-        vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
+        vb.rvUsers.layoutManager = LinearLayoutManager(context)
         adapter = UsersAdapter(presenter.usersListPresenter)
-        vb?.rvUsers?.adapter = adapter
+        vb.rvUsers.adapter = adapter
     }
 
     override fun updateList() {

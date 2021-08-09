@@ -1,6 +1,7 @@
 package softing.ubah4ukdev.popularlibrary
 
-import android.os.Bundle
+import androidx.core.view.ActionProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -10,20 +11,14 @@ import softing.ubah4ukdev.popularlibrary.presenter.main.IMainView
 import softing.ubah4ukdev.popularlibrary.presenter.main.MainPresenter
 import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
 import softing.ubah4ukdev.populatelibrary.R
-import softing.ubah4ukdev.populatelibrary.databinding.ActivityMainBinding
 
-class MainActivity : MvpAppCompatActivity(), IMainView {
 
-    private var vb: ActivityMainBinding? = null
+class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
+
+    private val vb: ActionProvider by viewBinding()
 
     private val presenter by moxyPresenter { MainPresenter(router) }
     val navigator = AppNavigator(this, R.id.container)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
-    }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -43,5 +38,4 @@ class MainActivity : MvpAppCompatActivity(), IMainView {
         }
         presenter.back()
     }
-
 }
