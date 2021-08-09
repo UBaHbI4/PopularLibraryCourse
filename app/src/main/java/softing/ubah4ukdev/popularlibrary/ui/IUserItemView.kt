@@ -1,4 +1,6 @@
-package softing.ubah4ukdev.popularlibrary.views
+package softing.ubah4ukdev.popularlibrary.ui
+
+import softing.ubah4ukdev.popularlibrary.presenter.user.IItemView
 
 /****
 Project PopularLibrary

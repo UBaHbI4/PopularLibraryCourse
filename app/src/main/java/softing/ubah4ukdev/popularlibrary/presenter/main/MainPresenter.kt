@@ -1,9 +1,8 @@
-package softing.ubah4ukdev.popularlibrary.presenter
+package softing.ubah4ukdev.popularlibrary.presenter.main
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
-import softing.ubah4ukdev.popularlibrary.views.IMainView
-import softing.ubah4ukdev.popularlibrary.views.UsersScreen
+import softing.ubah4ukdev.popularlibrary.presenter.users.UsersScreen
 
 /****
 Project PopularLibrary

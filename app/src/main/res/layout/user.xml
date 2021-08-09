@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/user_item_height"
     android:foreground="?attr/selectableItemBackground"
@@ -10,6 +11,7 @@
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/login_margin_start" />
+        android:layout_margin="@dimen/login_margin"
+        tools:text="@string/login" />
 
 </LinearLayout>
