@@ -8,6 +8,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App.Navigation.router
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
+import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
 import softing.ubah4ukdev.popularlibrary.presenter.user.IUserView
 import softing.ubah4ukdev.popularlibrary.presenter.user.UserPresenter
 import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
@@ -27,19 +28,21 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView {
     companion object {
 
         private const val ARG_USER = "arg_user"
+        private const val ERROR_VALUE = -1
 
-        fun newInstance(user: GithubUser): Fragment = UserFragment().apply {
-            arguments = bundleOf(ARG_USER to user)
+        fun newInstance(userId: Int?): Fragment = UserFragment().apply {
+            arguments = bundleOf(ARG_USER to userId)
         }
     }
 
     private val vb: FragmentUserBinding by viewBinding()
 
-    private val user: GithubUser? by lazy { arguments?.getParcelable(ARG_USER) }
+    private val userId: Int? by lazy { arguments?.getInt(ARG_USER) }
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
-            user = user,
-            router = router
+            userId = userId ?: ERROR_VALUE, //userId = -1 ?: -1,
+            router = router,
+            MockUsersRepositoryImpl
         )
     }
 

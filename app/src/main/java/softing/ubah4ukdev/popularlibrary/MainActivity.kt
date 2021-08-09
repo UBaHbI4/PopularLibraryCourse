@@ -1,5 +1,6 @@
 package softing.ubah4ukdev.popularlibrary
 
+import android.os.Bundle
 import androidx.core.view.ActionProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -37,5 +38,11 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
             }
         }
         presenter.back()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter.flatMap()
+        presenter.switchMap()
     }
 }

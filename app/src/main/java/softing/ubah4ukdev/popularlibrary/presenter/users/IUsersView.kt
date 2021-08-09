@@ -15,6 +15,10 @@ v1.0
  */
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface IUsersView : MvpView {
+
     fun init()
+
     fun updateList()
+
+    fun showMessage(message: String)
 }
