@@ -2,6 +2,9 @@ package softing.ubah4ukdev.popularlibrary.presenter.users
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import moxy.MvpPresenter
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
@@ -19,7 +22,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 class UsersPresenter(
-    private val mockUsersRepositoryImpl: MockUsersRepositoryImpl,
+    private val repository: MockUsersRepositoryImpl,
     private val router: Router
 ) :
     MvpPresenter<IUsersView>() {
@@ -37,6 +40,8 @@ class UsersPresenter(
 
     val usersListPresenter = UsersListPresenter()
 
+    private var disposables = CompositeDisposable()
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
@@ -44,20 +49,31 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        val users = mockUsersRepositoryImpl.users()
+
+        repository
+            .users()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ users ->
+                usersListPresenter.users.addAll(users)
+                viewState.updateList()
+            }, {
+                viewState.showMessage(it.message.toString())
+            })
+            .addTo(disposables)
 
         usersListPresenter.itemClickListener = { itemView ->
             Log.d("popLibDEBUG", itemView.toString())
-            router.navigateTo(UserScreen(users[itemView.pos]).create())
+            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].userId).create())
         }
+    }
 
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.dispose()
     }
 
     fun backPressed(): Boolean {
         router.exit()
         return true
     }
-
 }

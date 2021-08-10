@@ -12,5 +12,6 @@ Created by Ivan Sheynmaer
 v1.0
  */
 interface IUserItemView : IItemView {
+
     fun setLogin(text: String)
 }

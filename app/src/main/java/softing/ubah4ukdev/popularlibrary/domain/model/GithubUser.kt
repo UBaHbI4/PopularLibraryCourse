@@ -14,5 +14,6 @@ v1.0
  */
 @Parcelize
 data class GithubUser(
+    val userId: Int,
     val login: String
 ) : Parcelable

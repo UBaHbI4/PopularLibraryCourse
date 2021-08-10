@@ -10,6 +10,7 @@ import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryIm
 import softing.ubah4ukdev.popularlibrary.presenter.users.IUsersView
 import softing.ubah4ukdev.popularlibrary.presenter.users.UsersPresenter
 import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
+import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentUsersBinding
 
@@ -46,6 +47,10 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
 
     override fun updateList() {
         adapter?.notifyDataSetChanged()
+    }
+
+    override fun showMessage(message: String) {
+        vb.root.showSnakeBar(message)
     }
 
     override fun backPressed() = presenter.backPressed()
