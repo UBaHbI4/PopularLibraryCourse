@@ -13,7 +13,7 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-object MockUsersRepositoryImpl : IUsersRepository {
+class MockUsersRepositoryImpl : IUsersRepository {
     private val users = listOf(
         GithubUser(userId = 0, login = "Иванов И.И."),
         GithubUser(userId = 1, login = "Петров И.С."),
@@ -23,11 +23,9 @@ object MockUsersRepositoryImpl : IUsersRepository {
     )
 
     override fun users(): Single<List<GithubUser>> = Single.just(users)
-    //Single.error(Exception("Ошибочка"))
 
     override fun userById(userId: Int): Maybe<GithubUser> =
         users.firstOrNull { user -> user.userId == userId }
             ?.let { user -> Maybe.just(user) }
             ?: Maybe.error(Exception("Выбран несуществующий пользователь."))
-    //?:Maybe.empty()
 }

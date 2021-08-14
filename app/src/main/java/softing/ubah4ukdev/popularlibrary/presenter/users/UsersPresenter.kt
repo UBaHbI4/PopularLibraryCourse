@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import moxy.MvpPresenter
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
+import softing.ubah4ukdev.popularlibrary.domain.repository.IUsersRepository
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
 import softing.ubah4ukdev.popularlibrary.presenter.IUserListPresenter
 import softing.ubah4ukdev.popularlibrary.presenter.user.UserScreen
@@ -22,7 +23,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 class UsersPresenter(
-    private val repository: MockUsersRepositoryImpl,
+    private val repository: IUsersRepository,
     private val router: Router
 ) :
     MvpPresenter<IUsersView>() {
