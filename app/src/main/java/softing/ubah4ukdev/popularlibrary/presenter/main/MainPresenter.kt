@@ -28,7 +28,6 @@ class MainPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(UsersScreen.create())
     }
 
     fun back() = router.exit()

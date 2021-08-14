@@ -5,4 +5,6 @@
     <string name="counter_three">Счетчик 3</string>
     <string name="btn_default_text">0</string>
     <string name="login">Логин</string>
+    <string name="bottom_menu_title_users">GH Users</string>
+    <string name="bottom_menu_title_convert">Converter</string>
 </resources>
