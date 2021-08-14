@@ -23,11 +23,9 @@ object MockUsersRepositoryImpl : IUsersRepository {
     )
 
     override fun users(): Single<List<GithubUser>> = Single.just(users)
-    //Single.error(Exception("Ошибочка"))
 
     override fun userById(userId: Int): Maybe<GithubUser> =
         users.firstOrNull { user -> user.userId == userId }
             ?.let { user -> Maybe.just(user) }
             ?: Maybe.error(Exception("Выбран несуществующий пользователь."))
-    //?:Maybe.empty()
 }
