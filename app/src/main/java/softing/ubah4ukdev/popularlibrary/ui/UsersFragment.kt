@@ -7,6 +7,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
+import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
 import softing.ubah4ukdev.popularlibrary.presenter.users.IUsersView
 import softing.ubah4ukdev.popularlibrary.presenter.users.UsersPresenter
 import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
@@ -31,7 +32,7 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
 
     val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            MockUsersRepositoryImpl,
+            UserRepositoryFactory.create(),
             App.router
         )
     }

@@ -5,7 +5,9 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import moxy.MvpPresenter
+import softing.ubah4ukdev.popularlibrary.domain.repository.IUsersRepository
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
+import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
 import softing.ubah4ukdev.popularlibrary.presenter.users.UsersScreen
 
 /****
@@ -20,7 +22,7 @@ v1.0
 class UserPresenter(
     private val userId: Int,
     private val router: Router,
-    private val repository: MockUsersRepositoryImpl,
+    private val repository: IUsersRepository,
 ) :
     MvpPresenter<IUserView>() {
 

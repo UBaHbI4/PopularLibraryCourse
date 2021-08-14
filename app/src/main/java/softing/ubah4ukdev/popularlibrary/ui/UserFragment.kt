@@ -9,6 +9,7 @@ import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App.Navigation.router
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
+import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
 import softing.ubah4ukdev.popularlibrary.presenter.user.IUserView
 import softing.ubah4ukdev.popularlibrary.presenter.user.UserPresenter
 import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
@@ -42,7 +43,7 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView {
         UserPresenter(
             userId = userId ?: ERROR_VALUE, //userId = -1 ?: -1,
             router = router,
-            MockUsersRepositoryImpl
+            UserRepositoryFactory.create()
         )
     }
 
