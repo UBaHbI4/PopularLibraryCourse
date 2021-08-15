@@ -13,7 +13,12 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
+
+/**
+ * Фиксированный репозиторий для отладки
+ */
 class MockUsersRepositoryImpl : IUsersRepository {
+
     private val users = listOf(
         GithubUser(userId = 0, login = "Иванов И.И."),
         GithubUser(userId = 1, login = "Петров И.С."),

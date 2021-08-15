@@ -1,15 +1,15 @@
-package softing.ubah4ukdev.popularlibrary.ui
+package softing.ubah4ukdev.popularlibrary.presenter.users
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App
-import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
 import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
-import softing.ubah4ukdev.popularlibrary.presenter.users.IUsersView
-import softing.ubah4ukdev.popularlibrary.presenter.users.UsersPresenter
+import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
 import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
 import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.populatelibrary.R
@@ -44,6 +44,11 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
         vb.rvUsers.layoutManager = LinearLayoutManager(context)
         adapter = UsersAdapter(presenter.usersListPresenter)
         vb.rvUsers.adapter = adapter
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = getString(R.string.users_title)
     }
 
     override fun updateList() {

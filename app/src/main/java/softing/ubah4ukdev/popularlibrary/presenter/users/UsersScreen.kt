@@ -1,7 +1,6 @@
 package softing.ubah4ukdev.popularlibrary.presenter.users
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import softing.ubah4ukdev.popularlibrary.ui.UsersFragment
 
 /****
 Project PopularLibrary
