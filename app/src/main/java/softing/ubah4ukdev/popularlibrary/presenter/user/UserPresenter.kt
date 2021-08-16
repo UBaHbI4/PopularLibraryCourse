@@ -20,7 +20,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 class UserPresenter(
-    private val userId: Int,
+    private val userId: String,
     private val router: Router,
     private val repository: IUsersRepository,
 ) :

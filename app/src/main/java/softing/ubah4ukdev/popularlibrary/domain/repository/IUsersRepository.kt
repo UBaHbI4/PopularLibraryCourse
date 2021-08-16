@@ -26,5 +26,5 @@ interface IUsersRepository {
      * @param userId Id пользователя
      * @return GithubUser
      */
-    fun userById(userId: Int): Maybe<GithubUser>
+    fun userById(userId: String): Maybe<GithubUser>
 }

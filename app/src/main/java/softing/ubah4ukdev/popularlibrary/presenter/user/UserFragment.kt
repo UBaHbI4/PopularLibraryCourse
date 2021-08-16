@@ -1,8 +1,6 @@
 package softing.ubah4ukdev.popularlibrary.presenter.user
 
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -11,6 +9,7 @@ import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App.Navigation.router
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
+import softing.ubah4ukdev.popularlibrary.extensions.arguments
 import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentUserBinding
@@ -28,16 +27,15 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView {
     companion object {
 
         private const val ARG_USER = "arg_user"
-        private const val ERROR_VALUE = -1
+        private const val ERROR_VALUE = "-1"
 
-        fun newInstance(userId: Int?): Fragment = UserFragment().apply {
-            arguments = bundleOf(ARG_USER to userId)
-        }
+        fun newInstance(userId: String): Fragment = UserFragment()
+            .arguments(ARG_USER to userId)
     }
 
     private val vb: FragmentUserBinding by viewBinding()
 
-    private val userId: Int? by lazy { arguments?.getInt(ARG_USER) }
+    private val userId: String? by lazy { arguments?.getString(ARG_USER) }
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
             userId = userId ?: ERROR_VALUE,
@@ -53,5 +51,4 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView {
     override fun showMessage(message: String) {
         vb.root.showSnakeBar(message)
     }
-
 }
