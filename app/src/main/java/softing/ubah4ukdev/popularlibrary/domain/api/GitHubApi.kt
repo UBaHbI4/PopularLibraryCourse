@@ -4,6 +4,7 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
 /****
@@ -32,4 +33,12 @@ interface GitHubApi {
      */
     @GET("/users/{username}")
     fun userById(@Path("username") login: String): Single<GithubUser>
+
+    /**
+     * Получить список репозиториев пользователя
+     * @param login Логин пользователя
+     * @return GithubUser
+     */
+    @GET("users/{login}/repos")
+    fun repoList(@Path("login") login: String): Single<List<GitHubRepository>>
 }

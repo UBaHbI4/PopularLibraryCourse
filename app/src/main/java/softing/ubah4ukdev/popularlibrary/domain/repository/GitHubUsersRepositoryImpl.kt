@@ -3,6 +3,7 @@ package softing.ubah4ukdev.popularlibrary.domain.repository
 import io.reactivex.Maybe
 import io.reactivex.Single
 import softing.ubah4ukdev.popularlibrary.domain.api.GitHubApi
+import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
 /****
@@ -16,7 +17,7 @@ v1.0
  */
 class GitHubUsersRepositoryImpl(
     private val apiRepository: GitHubApi
-): IUsersRepository {
+) : IUsersRepository {
     override fun users(): Single<List<GithubUser>> =
         apiRepository.users()
 
@@ -24,4 +25,6 @@ class GitHubUsersRepositoryImpl(
         apiRepository.userById(login)
             .toMaybe()
 
+    override fun repoList(login: String): Single<List<GitHubRepository>> =
+        apiRepository.repoList(login)
 }

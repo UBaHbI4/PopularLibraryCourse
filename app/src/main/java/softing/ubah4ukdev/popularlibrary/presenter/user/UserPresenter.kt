@@ -8,6 +8,7 @@ import moxy.MvpPresenter
 import softing.ubah4ukdev.popularlibrary.domain.repository.IUsersRepository
 import softing.ubah4ukdev.popularlibrary.presenter.users.UsersScreen
 import softing.ubah4ukdev.popularlibrary.scheduler.Schedulers
+import java.util.concurrent.TimeUnit
 
 /****
 Project PopularLibrary
@@ -36,6 +37,17 @@ class UserPresenter(
             .subscribeOn(schedulers.background())
             .subscribe(
                 viewState::showUser
+            ) {
+                viewState.showMessage(it.message.toString())
+                router.replaceScreen(UsersScreen.create())
+            }.addTo(disposables)
+
+        repository
+            .repoList(login)
+            .observeOn(schedulers.main())
+            .subscribeOn(schedulers.background())
+            .subscribe(
+                viewState::showRepo
             ) {
                 viewState.showMessage(it.message.toString())
                 router.replaceScreen(UsersScreen.create())
