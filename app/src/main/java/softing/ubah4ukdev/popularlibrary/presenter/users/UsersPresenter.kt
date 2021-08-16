@@ -2,15 +2,14 @@ package softing.ubah4ukdev.popularlibrary.presenter.users
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import moxy.MvpPresenter
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 import softing.ubah4ukdev.popularlibrary.domain.repository.IUsersRepository
-import softing.ubah4ukdev.popularlibrary.domain.repository.MockUsersRepositoryImpl
 import softing.ubah4ukdev.popularlibrary.presenter.IUserListPresenter
 import softing.ubah4ukdev.popularlibrary.presenter.user.UserScreen
+import softing.ubah4ukdev.popularlibrary.scheduler.Schedulers
 import softing.ubah4ukdev.popularlibrary.ui.IUserItemView
 
 /****
@@ -24,7 +23,8 @@ v1.0
  */
 class UsersPresenter(
     private val repository: IUsersRepository,
-    private val router: Router
+    private val router: Router,
+    private val schedulers: Schedulers
 ) :
     MvpPresenter<IUsersView>() {
     class UsersListPresenter : IUserListPresenter {
@@ -35,7 +35,7 @@ class UsersPresenter(
 
         override fun bindView(view: IUserItemView) {
             val user = users[view.pos]
-            view.setLogin(user.login)
+            view.setUser(user.login, user.avatar)
         }
     }
 
@@ -53,7 +53,8 @@ class UsersPresenter(
 
         repository
             .users()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
+            .subscribeOn(schedulers.background())
             .subscribe({ users ->
                 usersListPresenter.users.addAll(users)
                 viewState.updateList()
@@ -64,7 +65,7 @@ class UsersPresenter(
 
         usersListPresenter.itemClickListener = { itemView ->
             Log.d("popLibDEBUG", itemView.toString())
-            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].userId).create())
+            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].login).create())
         }
     }
 

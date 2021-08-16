@@ -13,5 +13,5 @@ v1.0
  */
 interface IUserItemView : IItemView {
 
-    fun setLogin(text: String)
+    fun setUser(login: String, avatar: String)
 }
