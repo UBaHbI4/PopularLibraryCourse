@@ -6,7 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import moxy.MvpPresenter
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
-import softing.ubah4ukdev.popularlibrary.domain.repository.IUsersRepository
+import softing.ubah4ukdev.popularlibrary.domain.repository.IRepository
 import softing.ubah4ukdev.popularlibrary.presenter.IUserListPresenter
 import softing.ubah4ukdev.popularlibrary.presenter.user.UserScreen
 import softing.ubah4ukdev.popularlibrary.scheduler.Schedulers
@@ -22,7 +22,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 class UsersPresenter(
-    private val repository: IUsersRepository,
+    private val repository: IRepository,
     private val router: Router,
     private val schedulers: Schedulers
 ) :
@@ -50,7 +50,6 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-
         repository
             .users()
             .observeOn(schedulers.main())
@@ -58,8 +57,8 @@ class UsersPresenter(
             .subscribe({ users ->
                 usersListPresenter.users.addAll(users)
                 viewState.updateList()
-            }, {
-                viewState.showMessage(it.message.toString())
+            }, { throwable ->
+                viewState.showMessage(throwable.message.toString())
             })
             .addTo(disposables)
 

@@ -16,5 +16,15 @@ v1.0
 @SingleState
 interface IRepositoryView : MvpView {
 
+    /**
+     * Отобразить информацию репозитория
+     * @param repo GitHubRepository
+     */
     fun showDetail(repo: GitHubRepository)
+
+    /**
+     * Отобразить сообщение
+     * @param message Текст сообщения
+     */
+    fun showMessage(message: String)
 }

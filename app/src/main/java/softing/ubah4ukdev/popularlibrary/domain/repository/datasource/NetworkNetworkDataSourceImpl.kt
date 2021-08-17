@@ -1,4 +1,4 @@
-package softing.ubah4ukdev.popularlibrary.domain.repository
+package softing.ubah4ukdev.popularlibrary.domain.repository.datasource
 
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -8,23 +8,25 @@ import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
 /****
 Project PopularLibrary
-Package softing.ubah4ukdev.popularlibrary.domain.repository
+Package softing.ubah4ukdev.popularlibrary.domain.repository.datasource
 
 Created by Ivan Sheynmaer
 
-2021.08.16
+2021.08.17
 v1.0
  */
-class GitHubUsersRepositoryImpl(
-    private val apiRepository: GitHubApi
-) : IUsersRepository {
+class NetworkNetworkDataSourceImpl(private val gitHubApi: GitHubApi) : INetworkDataSource {
+
     override fun users(): Single<List<GithubUser>> =
-        apiRepository.users()
+        gitHubApi.users()
 
     override fun userById(login: String): Maybe<GithubUser> =
-        apiRepository.userById(login)
+        gitHubApi.userById(login)
             .toMaybe()
 
     override fun repoList(login: String): Single<List<GitHubRepository>> =
-        apiRepository.repoList(login)
+        gitHubApi.repoList(login)
+
+    override fun repoInfo(login: String, name: String): Single<GitHubRepository> =
+        gitHubApi.repoInfo(login, name)
 }

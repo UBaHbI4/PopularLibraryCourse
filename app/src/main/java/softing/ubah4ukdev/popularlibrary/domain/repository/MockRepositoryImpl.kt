@@ -1,7 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.domain.repository
 
 import io.reactivex.Maybe
-import io.reactivex.Single
+import io.reactivex.Observable
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
@@ -13,12 +13,9 @@ Created by Ivan Sheynmaer
 
 2021.08.05
 v1.0
+Фиксированный репозиторий для отладки
  */
-
-/**
- * Фиксированный репозиторий для отладки
- */
-class MockUsersRepositoryImpl : IUsersRepository {
+class MockRepositoryImpl : IRepository {
 
     private val users = listOf(
         GithubUser(userId = "0", login = "Иванов И.И.", "", ""),
@@ -28,14 +25,18 @@ class MockUsersRepositoryImpl : IUsersRepository {
         GithubUser(userId = "4", login = "Сорокин К.А.", "", "")
     )
 
-    override fun users(): Single<List<GithubUser>> = Single.just(users)
+    override fun users(): Observable<List<GithubUser>> = Observable.just(users)
 
     override fun userById(login: String): Maybe<GithubUser> =
         users.firstOrNull { user -> user.userId.equals(login) }
             ?.let { user -> Maybe.just(user) }
             ?: Maybe.error(Exception("Выбран несуществующий пользователь."))
 
-    override fun repoList(login: String): Single<List<GitHubRepository>> {
+    override fun repoInfo(login: String, name: String): Maybe<GitHubRepository> {
+        TODO("Not yet implemented")
+    }
+
+    override fun repoList(login: String): Observable<List<GitHubRepository>> {
         TODO("Not yet implemented")
     }
 }

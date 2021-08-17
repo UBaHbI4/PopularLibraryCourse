@@ -8,11 +8,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App
-import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
+import softing.ubah4ukdev.popularlibrary.domain.repository.RepositoryFactory
+import softing.ubah4ukdev.popularlibrary.extensions.showSnakeBar
+import softing.ubah4ukdev.popularlibrary.presenter.users.adapter.UsersAdapter
 import softing.ubah4ukdev.popularlibrary.scheduler.SchedulerFactory
 import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
-import softing.ubah4ukdev.popularlibrary.presenter.users.adapter.UsersAdapter
-import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentUsersBinding
 
@@ -33,9 +33,9 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
 
     val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            UserRepositoryFactory.create(),
-            App.router,
-            SchedulerFactory.create()
+            repository = RepositoryFactory.create(),
+            router = App.router,
+            schedulers = SchedulerFactory.create()
         )
     }
     var adapter: UsersAdapter? = null
@@ -44,7 +44,7 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
 
     override fun init() {
         vb.rvUsers.layoutManager = LinearLayoutManager(context)
-        adapter = UsersAdapter(presenter.usersListPresenter)
+        adapter = UsersAdapter(presenter = presenter.usersListPresenter)
         vb.rvUsers.adapter = adapter
     }
 

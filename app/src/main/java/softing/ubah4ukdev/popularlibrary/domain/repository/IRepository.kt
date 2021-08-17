@@ -1,7 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.domain.repository
 
 import io.reactivex.Maybe
-import io.reactivex.Single
+import io.reactivex.Observable
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
@@ -14,13 +14,13 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-interface IUsersRepository {
+interface IRepository {
 
     /**
      * Получить список пользователей
-     * @return Список пользователей List of GithubUser
+     * @return List of GithubUser
      */
-    fun users(): Single<List<GithubUser>>
+    fun users(): Observable<List<GithubUser>>
 
     /**
      * Получить пользователя по логину
@@ -30,9 +30,16 @@ interface IUsersRepository {
     fun userById(login: String): Maybe<GithubUser>
 
     /**
+     * Получить информацию о репозитории
+     * @param login Логин пользователя
+     * @return GitHubRepository
+     */
+    fun repoInfo(login: String, name: String): Maybe<GitHubRepository>
+
+    /**
      * Получить список репозиториев пользователя
      * @param login Логин пользователя
-     * @return GithubUser
+     * @return List of GithubUser
      */
-    fun repoList(login: String): Single<List<GitHubRepository>>
+    fun repoList(login: String): Observable<List<GitHubRepository>>
 }

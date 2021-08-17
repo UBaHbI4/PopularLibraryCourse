@@ -16,6 +16,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 object GitHubApiInterceptor : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response =
         chain.proceed(
             chain.request()

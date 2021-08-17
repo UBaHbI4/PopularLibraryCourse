@@ -6,7 +6,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.internal.util.HalfSerializer.onNext
 import io.reactivex.rxkotlin.plusAssign
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -77,7 +76,6 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
 
         val connect =
             NetworkStateObservable(this)
-                //.doOnNext { onNext(0, it) }
                 .publish()
 
         connect.connect()

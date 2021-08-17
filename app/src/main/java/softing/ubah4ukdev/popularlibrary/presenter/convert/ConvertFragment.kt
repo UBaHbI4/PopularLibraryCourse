@@ -15,9 +15,9 @@ import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.domain.converter.ImageConverterFactory
+import softing.ubah4ukdev.popularlibrary.extensions.showSnakeBar
 import softing.ubah4ukdev.popularlibrary.extensions.visible
 import softing.ubah4ukdev.popularlibrary.scheduler.SchedulerFactory
-import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentConvertBinding
 

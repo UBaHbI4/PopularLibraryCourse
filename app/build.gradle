@@ -44,6 +44,8 @@ android {
         it.buildConfigField "String", "API_LOGIN", apiLogin
         def apiToken = properties.getProperty("token", "")
         it.buildConfigField "String", "API_TOKEN", apiToken
+        def baseURL = properties.getProperty("base_url", "")
+        it.buildConfigField "String", "BASE_URL", baseURL
     }
 }
 

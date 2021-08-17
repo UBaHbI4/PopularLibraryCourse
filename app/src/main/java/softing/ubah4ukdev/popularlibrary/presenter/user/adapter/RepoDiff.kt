@@ -27,5 +27,4 @@ object RepoDiff : DiffUtil.ItemCallback<GitHubRepository>() {
     }
 
     override fun getChangePayload(oldItem: GitHubRepository, newItem: GitHubRepository) = payload
-
 }

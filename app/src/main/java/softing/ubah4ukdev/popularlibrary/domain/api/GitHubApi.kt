@@ -21,7 +21,7 @@ interface GitHubApi {
     /**
      * Получить список пользователей
      * @param since
-     * @return Список пользователей List of GithubUser
+     * @return List of GithubUser
      */
     @GET("/users")
     fun users(@Query("since") since: Int? = null): Single<List<GithubUser>>
@@ -37,8 +37,20 @@ interface GitHubApi {
     /**
      * Получить список репозиториев пользователя
      * @param login Логин пользователя
-     * @return GithubUser
+     * @return List of GithubUser
      */
     @GET("users/{login}/repos")
     fun repoList(@Path("login") login: String): Single<List<GitHubRepository>>
+
+    /**
+     * Получить детальную информацию о репозитории
+     * @param login Логин пользователя
+     * @param repository Название репозитория
+     * @return GitHubRepository
+     */
+    @GET("repos/{login}/{name}")
+    fun repoInfo(
+        @Path("login") login: String,
+        @Path("name") repository: String,
+    ): Single<GitHubRepository>
 }

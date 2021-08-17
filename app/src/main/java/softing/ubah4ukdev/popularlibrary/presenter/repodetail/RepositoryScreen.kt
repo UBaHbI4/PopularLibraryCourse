@@ -13,6 +13,12 @@ Created by Ivan Sheynmaer
 2021.08.16
 v1.0
  */
-class RepositoryScreen(private val repo: GitHubRepository) {
-    fun create(): Screen = FragmentScreen { RepositoryFragment.newInstance(repo) }
+class RepositoryScreen(
+    private val repository: GitHubRepository,
+) {
+    fun create(): Screen = FragmentScreen {
+        RepositoryFragment.newInstance(
+            repository
+        )
+    }
 }

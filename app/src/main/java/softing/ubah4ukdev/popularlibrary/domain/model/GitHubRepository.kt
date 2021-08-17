@@ -1,6 +1,8 @@
 package softing.ubah4ukdev.popularlibrary.domain.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -14,7 +16,13 @@ Created by Ivan Sheynmaer
 v1.0
  */
 @Parcelize
+@Entity(tableName = "github_user_repository")
 data class GitHubRepository(
+
+    @SerializedName("login")
+    val login: String = "",
+
+    @PrimaryKey
     @SerializedName("id")
     val id: String,
 
@@ -38,4 +46,5 @@ data class GitHubRepository(
 
     @SerializedName("size")
     val size: Int?,
-) : Parcelable
+
+    ) : Parcelable

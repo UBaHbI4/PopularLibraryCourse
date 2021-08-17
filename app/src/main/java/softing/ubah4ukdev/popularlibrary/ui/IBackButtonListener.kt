@@ -10,5 +10,6 @@ Created by Ivan Sheynmaer
 v1.0
  */
 interface IBackButtonListener {
+
     fun backPressed(): Boolean
 }
