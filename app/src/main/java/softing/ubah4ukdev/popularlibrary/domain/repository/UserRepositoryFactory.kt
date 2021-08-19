@@ -1,5 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.domain.repository
 
+import softing.ubah4ukdev.popularlibrary.domain.api.GitHubApiFactory
+
 /****
 Project PopularLibrary
 Package softing.ubah4ukdev.popularlibrary.domain.repository
@@ -11,5 +13,6 @@ v1.0
  */
 object UserRepositoryFactory {
 
-    fun create(): IUsersRepository = MockUsersRepositoryImpl()
+    //fun create(): IUsersRepository = MockUsersRepositoryImpl()
+    fun create(): IUsersRepository = GitHubUsersRepositoryImpl(GitHubApiFactory.create())
 }

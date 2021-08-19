@@ -9,6 +9,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.App
 import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
+import softing.ubah4ukdev.popularlibrary.scheduler.SchedulerFactory
 import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
 import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
 import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
@@ -33,7 +34,8 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
     val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
             UserRepositoryFactory.create(),
-            App.router
+            App.router,
+            SchedulerFactory.create()
         )
     }
     var adapter: UsersAdapter? = null

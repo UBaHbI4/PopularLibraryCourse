@@ -12,6 +12,6 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-class UserScreen(private val userId: Int) {
+class UserScreen(private val userId: String) {
     fun create(): Screen = FragmentScreen { UserFragment.newInstance(userId) }
 }

@@ -1,6 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.domain.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 /****
@@ -14,6 +15,12 @@ v1.0
  */
 @Parcelize
 data class GithubUser(
-    val userId: Int,
-    val login: String
+    @SerializedName("id")
+    val userId: String,
+
+    @SerializedName("login")
+    val login: String,
+
+    @SerializedName("avatar_url")
+    val avatar: String
 ) : Parcelable

@@ -3,6 +3,7 @@ package softing.ubah4ukdev.popularlibrary.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import softing.ubah4ukdev.popularlibrary.extensions.setStartDrawableCircleImageFromUri
 import softing.ubah4ukdev.popularlibrary.presenter.IUserListPresenter
 import softing.ubah4ukdev.popularlibrary.ui.IUserItemView
 import softing.ubah4ukdev.populatelibrary.databinding.UserBinding
@@ -41,8 +42,9 @@ class UsersAdapter(val presenter: IUserListPresenter) :
         IUserItemView {
         override var pos = -1
 
-        override fun setLogin(text: String) = with(vb) {
-            tvLogin.text = text
+        override fun setUser(login: String, avatar: String) = with(vb) {
+            tvLogin.text = login
+            tvLogin.setStartDrawableCircleImageFromUri(avatar)
         }
     }
 }
