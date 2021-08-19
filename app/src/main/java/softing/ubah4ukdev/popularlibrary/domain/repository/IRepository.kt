@@ -20,26 +20,26 @@ interface IRepository {
      * Получить список пользователей
      * @return List of GithubUser
      */
-    fun users(): Observable<List<GithubUser>>
+    fun fetchUsers(): Observable<List<GithubUser>>
 
     /**
      * Получить пользователя по логину
      * @param login Логин пользователя
      * @return GithubUser
      */
-    fun userById(login: String): Maybe<GithubUser>
+    fun fetchUserByLogin(login: String): Maybe<GithubUser>
 
     /**
      * Получить информацию о репозитории
      * @param login Логин пользователя
      * @return GitHubRepository
      */
-    fun repoInfo(login: String, name: String): Maybe<GitHubRepository>
+    fun fetchRepositoryInfo(login: String, repositoryName: String): Maybe<GitHubRepository>
 
     /**
      * Получить список репозиториев пользователя
      * @param login Логин пользователя
      * @return List of GithubUser
      */
-    fun repoList(login: String): Observable<List<GitHubRepository>>
+    fun fetchUserRepositoriesByLogin(login: String): Observable<List<GitHubRepository>>
 }

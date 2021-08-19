@@ -31,7 +31,7 @@ class UserPresenter(
     @SuppressLint("CheckResult")
     override fun onFirstViewAttach() {
         repository
-            .userById(login = login)
+            .fetchUserByLogin(login = login)
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
@@ -42,7 +42,7 @@ class UserPresenter(
             }.addTo(disposables)
 
         repository
-            .repoList(login = login)
+            .fetchUserRepositoriesByLogin(login = login)
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
@@ -55,5 +55,9 @@ class UserPresenter(
 
     override fun onDestroy() {
         disposables.dispose()
+    }
+
+    fun setTitle() {
+        viewState.setTitle(login)
     }
 }

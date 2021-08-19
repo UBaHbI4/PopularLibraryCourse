@@ -51,7 +51,7 @@ class UsersPresenter(
 
     private fun loadData() {
         repository
-            .users()
+            .fetchUsers()
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe({ users ->

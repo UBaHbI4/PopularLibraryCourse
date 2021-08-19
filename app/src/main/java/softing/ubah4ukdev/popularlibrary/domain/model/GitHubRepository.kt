@@ -19,12 +19,12 @@ v1.0
 @Entity(tableName = "github_user_repository")
 data class GitHubRepository(
 
-    @SerializedName("login")
-    val login: String = "",
-
     @PrimaryKey
     @SerializedName("id")
     val id: String,
+
+    @SerializedName("login")
+    val login: String = "",
 
     @SerializedName("name")
     val name: String,

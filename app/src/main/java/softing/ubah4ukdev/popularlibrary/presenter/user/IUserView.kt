@@ -34,4 +34,10 @@ interface IUserView : MvpView {
      * @param repos Список репозиториев
      */
     fun showRepo(repos: List<GitHubRepository>)
+
+    /**
+     * Установить заголовок
+     * @param title Текст заголовка
+     */
+    fun setTitle(title: String)
 }

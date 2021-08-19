@@ -23,7 +23,7 @@ interface GitHubDao {
      * @return List of GithubUser
      */
     @Query("SELECT * FROM github_user")
-    fun users(): Single<List<GithubUser>>
+    fun fetchUsers(): Single<List<GithubUser>>
 
     /**
      * Получить пользователя по логину из базы
@@ -31,7 +31,7 @@ interface GitHubDao {
      * @return GithubUser
      */
     @Query("SELECT * FROM github_user WHERE login LIKE :login LIMIT 1")
-    fun userByLogin(login: String): Single<GithubUser>
+    fun fetchUserByLogin(login: String): Single<GithubUser>
 
     /**
      * Сохранить список пользователей в базу
@@ -51,19 +51,19 @@ interface GitHubDao {
 
     /**
      * Сохранить список репозиториев в базу
-     * @param repos Список репозиториев
+     * @param repositories Список репозиториев
      * @return List of GitHubRepository
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun retainRepositories(repos: List<GitHubRepository>): Completable
+    fun retainRepositories(repositories: List<GitHubRepository>): Completable
 
     /**
      * Обновить репозиторий в базе
-     * @param repo Репозиторий
+     * @param repository Репозиторий
      * @return GitHubRepository
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun retainRepository(repo: GitHubRepository): Completable
+    fun retainRepository(repository: GitHubRepository): Completable
 
     /**
      * Получить список репозиториев пользователя из базы
@@ -71,14 +71,14 @@ interface GitHubDao {
      * @return List of GitHubRepository
      */
     @Query("SELECT * FROM github_user_repository WHERE login = :login")
-    fun repoList(login: String): Single<List<GitHubRepository>>
+    fun fetchUserRepositories(login: String): Single<List<GitHubRepository>>
 
     /**
      * Получить репозиторий пользователя по логину и названию из базы
      * @param login Логин пользователя
-     * @param name Название репозитория
+     * @param repositoryName Название репозитория
      * @return GitHubRepository
      */
-    @Query("SELECT * FROM github_user_repository WHERE login = :login AND name = :name LIMIT 1")
-    fun repoInfo(login: String, name: String): Single<GitHubRepository>
+    @Query("SELECT * FROM github_user_repository WHERE login = :login AND name = :repositoryName LIMIT 1")
+    fun fetchRepositoryInfo(login: String, repositoryName: String): Single<GitHubRepository>
 }

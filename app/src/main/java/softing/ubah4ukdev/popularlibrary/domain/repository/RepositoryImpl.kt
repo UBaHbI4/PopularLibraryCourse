@@ -18,28 +18,31 @@ v1.0
  */
 class RepositoryImpl(
     private val cloud: INetworkDataSource,
-    private val ICache: ICacheDataSource,
+    private val cache: ICacheDataSource,
 ) : IRepository {
 
-    override fun users(): Observable<List<GithubUser>> =
+    override fun fetchUsers(): Observable<List<GithubUser>> =
         Observable.merge(
-            ICache.users().toObservable(),
-            cloud.users().flatMap(ICache::retainUsers).toObservable()
+            cache.fetchUsers().toObservable(),
+            cloud.fetchUsers().flatMap(cache::retainUsers).toObservable()
         )
 
-    override fun userById(login: String): Maybe<GithubUser> =
-        ICache.userById(login)
+    override fun fetchUserByLogin(login: String): Maybe<GithubUser> =
+        cache.fetchUserByLogin(login)
             .onErrorResumeNext(
-                cloud.userById(login)
+                cloud.fetchUserByLogin(login)
             )
 
-    override fun repoInfo(login: String, name: String): Maybe<GitHubRepository> =
+    override fun fetchRepositoryInfo(
+        login: String,
+        repositoryName: String
+    ): Maybe<GitHubRepository> =
 
-        ICache
-            .repoInfo(login, name)
+        cache
+            .fetchRepositoryInfo(login, repositoryName)
             .onErrorResumeNext(
                 cloud
-                    .repoInfo(login, name)
+                    .fetchRepositoryInfo(login, repositoryName)
             )
             .toMaybe()
 
@@ -47,13 +50,13 @@ class RepositoryImpl(
      * С помощью map заполняем поле login, которое мы не получаем в результате запроса,
      * но которое нам нужно для сохранения в базу и поиска по нему.
      */
-    override fun repoList(login: String): Observable<List<GitHubRepository>> =
+    override fun fetchUserRepositoriesByLogin(login: String): Observable<List<GitHubRepository>> =
         Observable.merge(
-            ICache.repoList(login).toObservable(),
-            cloud.repoList(login)
+            cache.fetchUserRepositories(login).toObservable(),
+            cloud.fetchUserRepositories(login)
                 .flattenAsObservable { it }
                 .map { repo -> repo.copy(login = login) }
                 .toList()
-                .flatMap { ICache.retainRepositories(it, login) }.toObservable()
+                .flatMap { cache.retainRepositories(it, login) }.toObservable()
         )
 }

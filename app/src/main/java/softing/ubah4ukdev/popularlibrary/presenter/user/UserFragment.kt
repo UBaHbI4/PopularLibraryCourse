@@ -42,7 +42,7 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
     }
 
     private val vb: FragmentUserBinding by viewBinding()
-    private val repoAdapter = RepositoriesAdapter(delegate = this)
+    private val repositoriesAdapter = RepositoriesAdapter(delegate = this)
 
     private val login: String? by lazy { arguments?.getString(ARG_USER) }
 
@@ -57,12 +57,11 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        login?.let {
-            requireActivity().title = it.uppercase()
-        }
+
+        presenter.setTitle()
 
         vb.repoTitle.visible { false }
-        vb.rvRepos.adapter = repoAdapter
+        vb.rvRepos.adapter = repositoriesAdapter
     }
 
     override fun showUser(user: GithubUser) {
@@ -76,7 +75,11 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
 
     override fun showRepo(repos: List<GitHubRepository>) {
         vb.repoTitle.visible { true }
-        repoAdapter.submitList(repos)
+        repositoriesAdapter.submitList(repos)
+    }
+
+    override fun setTitle(title: String) {
+        requireActivity().title = title.uppercase()
     }
 
     override fun onRepoPicked(repository: GitHubRepository) {

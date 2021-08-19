@@ -35,16 +35,17 @@ class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), I
     }
 
     private val vb: FragmentRepositoryBinding by viewBinding()
-    private val repo: GitHubRepository? by lazy { arguments?.getParcelable(ARG_REPO) }
+    private val gitHubRepository: GitHubRepository? by lazy { arguments?.getParcelable(ARG_REPO) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        repo?.name?.let { requireActivity().title = it.uppercase() }
+
+        presenter.setTitle()
     }
 
     private val presenter: RepositoryPresenter by moxyPresenter {
         RepositoryPresenter(
-            repoItem = repo ?: throw Throwable(IllegalArgumentException()),
+            userRepository = gitHubRepository ?: throw Throwable(IllegalArgumentException()),
             schedulers = SchedulerFactory.create(),
             repository = RepositoryFactory.create()
         )
@@ -66,6 +67,10 @@ class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), I
 
     override fun showMessage(message: String) {
         vb.root.showSnakeBar(text = message)
+    }
+
+    override fun setTitle(title: String) {
+        requireActivity().title = title.uppercase()
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()

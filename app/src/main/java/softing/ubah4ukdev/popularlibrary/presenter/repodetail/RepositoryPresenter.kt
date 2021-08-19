@@ -20,7 +20,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 class RepositoryPresenter(
-    private val repoItem: GitHubRepository,
+    private val userRepository: GitHubRepository,
     private val schedulers: Schedulers,
     private val repository: IRepository
 ) :
@@ -31,7 +31,7 @@ class RepositoryPresenter(
     @SuppressLint("CheckResult")
     override fun onFirstViewAttach() {
         repository
-            .repoInfo(repoItem.login, repoItem.name)
+            .fetchRepositoryInfo(userRepository.login, userRepository.name)
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
@@ -46,7 +46,11 @@ class RepositoryPresenter(
     }
 
     fun backPressed(): Boolean {
-        router.replaceScreen(UserScreen(repoItem.login).create())
+        router.replaceScreen(UserScreen(userRepository.login).create())
         return true
+    }
+
+    fun setTitle() {
+        viewState.setTitle(userRepository.name)
     }
 }
