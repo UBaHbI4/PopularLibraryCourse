@@ -18,6 +18,9 @@ data class GitHubRepository(
     @SerializedName("id")
     val id: String,
 
+    @SerializedName("login")
+    val login: String = "",
+
     @SerializedName("name")
     val name: String,
 

@@ -19,12 +19,12 @@ class GitHubUsersRepositoryImpl(
     private val apiRepository: GitHubApi
 ) : IUsersRepository {
     override fun users(): Single<List<GithubUser>> =
-        apiRepository.users()
+        apiRepository.fetchUsers()
 
     override fun userById(login: String): Maybe<GithubUser> =
-        apiRepository.userById(login)
+        apiRepository.fetchUserByLogin(login)
             .toMaybe()
 
     override fun repoList(login: String): Single<List<GitHubRepository>> =
-        apiRepository.repoList(login)
+        apiRepository.fetchUserRepositoriesByLogin(login)
 }

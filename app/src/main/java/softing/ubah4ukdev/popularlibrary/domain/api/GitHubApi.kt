@@ -24,7 +24,7 @@ interface GitHubApi {
      * @return Список пользователей List of GithubUser
      */
     @GET("/users")
-    fun users(@Query("since") since: Int? = null): Single<List<GithubUser>>
+    fun fetchUsers(@Query("since") since: Int? = null): Single<List<GithubUser>>
 
     /**
      * Получить пользователя по логину
@@ -32,7 +32,7 @@ interface GitHubApi {
      * @return GithubUser
      */
     @GET("/users/{username}")
-    fun userById(@Path("username") login: String): Single<GithubUser>
+    fun fetchUserByLogin(@Path("username") login: String): Single<GithubUser>
 
     /**
      * Получить список репозиториев пользователя
@@ -40,5 +40,5 @@ interface GitHubApi {
      * @return GithubUser
      */
     @GET("users/{login}/repos")
-    fun repoList(@Path("login") login: String): Single<List<GitHubRepository>>
+    fun fetchUserRepositoriesByLogin(@Path("login") login: String): Single<List<GitHubRepository>>
 }

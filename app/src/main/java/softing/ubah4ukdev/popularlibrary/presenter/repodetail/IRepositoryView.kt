@@ -17,4 +17,6 @@ v1.0
 interface IRepositoryView : MvpView {
 
     fun showDetail(repo: GitHubRepository)
+
+    fun setTitle(title: String)
 }

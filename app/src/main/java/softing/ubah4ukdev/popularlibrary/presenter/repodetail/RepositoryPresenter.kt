@@ -17,4 +17,8 @@ class RepositoryPresenter(private val repo: GitHubRepository) : MvpPresenter<IRe
     override fun onFirstViewAttach() {
         viewState.showDetail(repo)
     }
+
+    fun setTitle() {
+        viewState.setTitle(repo.name)
+    }
 }

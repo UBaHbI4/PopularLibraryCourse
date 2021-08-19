@@ -34,7 +34,7 @@ class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), I
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().title = repo?.name
+        presenter.setTitle()
     }
 
     private val presenter: RepositoryPresenter by moxyPresenter {
@@ -55,5 +55,9 @@ class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), I
             repoDateCreated.text = "Дата создания: ${repo.createdAt}"
             repoSize.text = "Размер репозитория: ${repo.size}"
         }
+    }
+
+    override fun setTitle(title: String) {
+        requireActivity().title = title
     }
 }
