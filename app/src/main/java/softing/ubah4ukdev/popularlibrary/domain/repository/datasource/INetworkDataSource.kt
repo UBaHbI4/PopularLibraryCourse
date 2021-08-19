@@ -20,27 +20,27 @@ interface INetworkDataSource {
      * Получить список пользователей
      * @return Список пользователей List of GithubUser
      */
-    fun users(): Single<List<GithubUser>>
+    fun fetchUsers(): Single<List<GithubUser>>
 
     /**
      * Получить пользователя по логину
      * @param login Логин пользователя
      * @return GithubUser
      */
-    fun userById(login: String): Maybe<GithubUser>
+    fun fetchUserByLogin(login: String): Maybe<GithubUser>
 
     /**
      * Получить список репозиториев пользователя
      * @param login Логин пользователя
      * @return List of GitHubRepository
      */
-    fun repoList(login: String): Single<List<GitHubRepository>>
+    fun fetchUserRepositories(login: String): Single<List<GitHubRepository>>
 
     /**
      * Получить информацию о репозитории
      * @param login Логин пользователя
-     * @param name Название репозитория
+     * @param repositoryName Название репозитория
      * @return GitHubRepository
      */
-    fun repoInfo(login: String, name: String): Single<GitHubRepository>
+    fun fetchRepositoryInfo(login: String, repositoryName: String): Single<GitHubRepository>
 }

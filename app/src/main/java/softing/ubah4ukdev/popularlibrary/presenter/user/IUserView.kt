@@ -1,6 +1,8 @@
 package softing.ubah4ukdev.popularlibrary.presenter.user
 
 import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
 import moxy.viewstate.strategy.alias.SingleState
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
@@ -14,7 +16,7 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-@SingleState
+@StateStrategyType(AddToEndSingleStrategy::class)
 interface IUserView : MvpView {
 
     /**
@@ -31,7 +33,13 @@ interface IUserView : MvpView {
 
     /**
      * Отобразить список репозиториев в RV
-     * @param repos Список репозиториев
+     * @param repositories Список репозиториев
      */
-    fun showRepo(repos: List<GitHubRepository>)
+    fun showRepositories(repositories: List<GitHubRepository>)
+
+    /**
+     * Установить заголовок
+     * @param title Текст заголовка
+     */
+    fun setTitle(title: String)
 }

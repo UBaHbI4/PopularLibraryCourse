@@ -12,14 +12,15 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import softing.ubah4ukdev.popularlibrary.domain.converter.ImageConverterFactory
+import softing.ubah4ukdev.popularlibrary.domain.converter.IImageConverter
 import softing.ubah4ukdev.popularlibrary.extensions.showSnakeBar
 import softing.ubah4ukdev.popularlibrary.extensions.visible
-import softing.ubah4ukdev.popularlibrary.scheduler.SchedulerFactory
+import softing.ubah4ukdev.popularlibrary.presenter.abs.AbsFragment
+import softing.ubah4ukdev.popularlibrary.scheduler.Schedulers
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentConvertBinding
+import javax.inject.Inject
 
 
 /****
@@ -31,7 +32,7 @@ Created by Ivan Sheynmaer
 2021.08.14
 v1.0
  */
-class ConvertFragment : MvpAppCompatFragment(R.layout.fragment_convert), IConvertView {
+class ConvertFragment : AbsFragment(R.layout.fragment_convert), IConvertView {
 
     companion object {
         fun newInstance(): Fragment = ConvertFragment()
@@ -41,14 +42,20 @@ class ConvertFragment : MvpAppCompatFragment(R.layout.fragment_convert), IConver
 
     private val vb: FragmentConvertBinding by viewBinding()
 
+    @Inject
+    lateinit var converter: IImageConverter
+
+    @Inject
+    lateinit var schedulers: Schedulers
+
     override fun showMessage(message: String) {
         vb.root.showSnakeBar(message)
     }
 
     private val presenter: ConvertPresenter by moxyPresenter {
         ConvertPresenter(
-            imageConverter = ImageConverterFactory.create(requireActivity().application),
-            schedulers = SchedulerFactory.create()
+            imageConverter = converter,
+            schedulers = schedulers
         )
     }
 

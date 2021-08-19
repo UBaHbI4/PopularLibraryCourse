@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import io.reactivex.Single
 import java.io.File
 import java.io.FileOutputStream
+import javax.inject.Inject
 
 /****
 Project PopularLibrary
@@ -17,7 +18,7 @@ Created by Ivan Sheynmaer
 2021.08.14
 v1.0
  */
-class ImageConverterImpl(private val context: Context) : IImageConverter {
+class ImageConverterImpl @Inject constructor(private val context: Context) : IImageConverter {
     companion object {
         /**
          * DEF_QUALITY - Степень сжатия. Для PNG практически бесполезна,
@@ -40,8 +41,7 @@ class ImageConverterImpl(private val context: Context) : IImageConverter {
                 val bitmap =
                     MediaStore.Images.Media.getBitmap(context.contentResolver, uriTargetImage)
 
-
-                FileOutputStream(toFile).use{
+                FileOutputStream(toFile).use {
                     val result =
                         bitmap.compress(Bitmap.CompressFormat.PNG, DEF_QUALITY, it)
                     if (!emitter.isDisposed) {

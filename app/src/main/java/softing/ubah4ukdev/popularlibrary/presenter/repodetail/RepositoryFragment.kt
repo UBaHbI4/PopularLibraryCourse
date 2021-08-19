@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import moxy.MvpAppCompatFragment
+import com.github.terrakok.cicerone.Router
 import moxy.ktx.moxyPresenter
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
-import softing.ubah4ukdev.popularlibrary.domain.repository.RepositoryFactory
+import softing.ubah4ukdev.popularlibrary.domain.repository.IRepository
 import softing.ubah4ukdev.popularlibrary.extensions.arguments
 import softing.ubah4ukdev.popularlibrary.extensions.showSnakeBar
-import softing.ubah4ukdev.popularlibrary.scheduler.SchedulerFactory
-import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
+import softing.ubah4ukdev.popularlibrary.presenter.abs.AbsFragment
+import softing.ubah4ukdev.popularlibrary.scheduler.Schedulers
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentRepositoryBinding
+import javax.inject.Inject
 
 /****
 Project PopularLibrary
@@ -24,8 +25,7 @@ Created by Ivan Sheynmaer
 2021.08.16
 v1.0
  */
-class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), IRepositoryView,
-    IBackButtonListener {
+class RepositoryFragment : AbsFragment(R.layout.fragment_repository), IRepositoryView {
 
     companion object {
         private const val ARG_REPO = "arg_repo"
@@ -34,33 +34,43 @@ class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), I
             .arguments(ARG_REPO to repo)
     }
 
+    @Inject
+    lateinit var repository: IRepository
+
+    @Inject
+    lateinit var schedulers: Schedulers
+
+    @Inject
+    lateinit var router: Router
+
     private val vb: FragmentRepositoryBinding by viewBinding()
-    private val repo: GitHubRepository? by lazy { arguments?.getParcelable(ARG_REPO) }
+    private val gitHubRepository: GitHubRepository? by lazy { arguments?.getParcelable(ARG_REPO) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        repo?.name?.let { requireActivity().title = it.uppercase() }
+
+        presenter.setTitle()
     }
 
     private val presenter: RepositoryPresenter by moxyPresenter {
         RepositoryPresenter(
-            repoItem = repo ?: throw Throwable(IllegalArgumentException()),
-            schedulers = SchedulerFactory.create(),
-            repository = RepositoryFactory.create()
+            gitHubRepository = gitHubRepository ?: throw Throwable(IllegalArgumentException()),
+            schedulers = schedulers,
+            repository = repository
         )
     }
 
     override fun showDetail(repo: GitHubRepository) {
 
         with(vb) {
-            repoId.text = repo.id
-            repoName.text = repo.name
-            repoDescription.text = "${repo.description}"
-            repoLanguage.text = "${repo.language}"
-            "${repo.forksCount} шт.".also { repoForksCount.text = it }
-            repoBranch.text = "${repo.defaultBranch}"
-            repoDateCreated.text = "${repo.createdAt}"
-            repoSize.text = "${repo.size}"
+            repositoryId.text = repo.id
+            repositoryName.text = repo.name
+            repositoryDescription.text = "${repo.description}"
+            repositoryLanguage.text = "${repo.language}"
+            "${repo.forksCount} шт.".also { repositoryForksCount.text = it }
+            repositoryBranch.text = "${repo.defaultBranch}"
+            repositoryDateCreated.text = "${repo.createdAt}"
+            repositorySize.text = "${repo.size}"
         }
     }
 
@@ -68,5 +78,7 @@ class RepositoryFragment : MvpAppCompatFragment(R.layout.fragment_repository), I
         vb.root.showSnakeBar(text = message)
     }
 
-    override fun backPressed(): Boolean = presenter.backPressed()
+    override fun setTitle(title: String) {
+        requireActivity().title = title
+    }
 }

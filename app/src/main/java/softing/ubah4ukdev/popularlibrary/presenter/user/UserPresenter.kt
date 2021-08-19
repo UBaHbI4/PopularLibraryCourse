@@ -28,32 +28,36 @@ class UserPresenter(
 
     private var disposables = CompositeDisposable()
 
+
     @SuppressLint("CheckResult")
     override fun onFirstViewAttach() {
         repository
-            .userById(login = login)
+            .fetchUserByLogin(login = login)
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
                 viewState::showUser
             ) { throwable ->
                 viewState.showMessage(message = throwable.message.toString())
-                router.replaceScreen(UsersScreen.create())
+                router.backTo(UsersScreen)
             }.addTo(disposables)
 
         repository
-            .repoList(login = login)
+            .fetchUserRepositoriesByLogin(login = login)
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
-                viewState::showRepo
+                viewState::showRepositories
             ) { throwable ->
                 viewState.showMessage(message = throwable.message.toString())
-                router.replaceScreen(UsersScreen.create())
             }.addTo(disposables)
     }
 
     override fun onDestroy() {
         disposables.dispose()
+    }
+
+    fun setTitle() {
+        viewState.setTitle(login.uppercase())
     }
 }

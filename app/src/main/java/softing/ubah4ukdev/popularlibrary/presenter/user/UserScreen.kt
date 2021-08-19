@@ -1,6 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.presenter.user
 
-import com.github.terrakok.cicerone.Screen
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 /****
@@ -12,6 +13,8 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-class UserScreen(private val login: String) {
-    fun create(): Screen = FragmentScreen { UserFragment.newInstance(login = login) }
+class UserScreen(private val login: String) : FragmentScreen {
+
+    override fun createFragment(factory: FragmentFactory): Fragment =
+        UserFragment.newInstance(login = login)
 }

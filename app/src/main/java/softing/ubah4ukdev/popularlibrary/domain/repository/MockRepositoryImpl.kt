@@ -4,6 +4,7 @@ import io.reactivex.Maybe
 import io.reactivex.Observable
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
+import javax.inject.Inject
 
 /****
 Project PopularLibrary
@@ -15,7 +16,7 @@ Created by Ivan Sheynmaer
 v1.0
 Фиксированный репозиторий для отладки
  */
-class MockRepositoryImpl : IRepository {
+class MockRepositoryImpl @Inject constructor() : IRepository {
 
     private val users = listOf(
         GithubUser(userId = "0", login = "Иванов И.И.", "", ""),
@@ -25,18 +26,106 @@ class MockRepositoryImpl : IRepository {
         GithubUser(userId = "4", login = "Сорокин К.А.", "", "")
     )
 
-    override fun users(): Observable<List<GithubUser>> = Observable.just(users)
+    private val repositories = listOf(
+        GitHubRepository(
+            id = "1",
+            login = "Иванов И.И.",
+            "test",
+            "descr1",
+            "Ru",
+            12,
+            "master",
+            "",
+            1
+        ),
+        GitHubRepository(
+            id = "2",
+            login = "Иванов И.И.",
+            "test2",
+            "descr2",
+            "Ru",
+            11,
+            "master",
+            "",
+            3
+        ),
+        GitHubRepository(
+            id = "3",
+            login = "Иванов И.И.",
+            "test3",
+            "descr3",
+            "Ru",
+            10,
+            "master",
+            "",
+            6
+        ),
+        GitHubRepository(
+            id = "4",
+            login = "Петров И.С.",
+            "test4",
+            "descr4",
+            "Ru",
+            9,
+            "master",
+            "",
+            7
+        ),
+        GitHubRepository(
+            id = "5",
+            login = "Сидоров С.А.",
+            "test5",
+            "descr5",
+            "Ru",
+            5,
+            "master",
+            "",
+            2
+        ),
+        GitHubRepository(
+            id = "6",
+            login = "Дудкин Б.Б.",
+            "test6",
+            "descr6",
+            "Ru",
+            7,
+            "master",
+            "",
+            6
+        ),
+        GitHubRepository(
+            id = "7",
+            login = "Сорокин К.А.",
+            "test7",
+            "descr7",
+            "Ru",
+            8,
+            "master",
+            "",
+            12
+        ),
+    )
 
-    override fun userById(login: String): Maybe<GithubUser> =
-        users.firstOrNull { user -> user.userId.equals(login) }
+    override fun fetchUsers(): Observable<List<GithubUser>> = Observable.just(users)
+
+    override fun fetchUserByLogin(login: String): Maybe<GithubUser> =
+        users
+            .firstOrNull { user -> user.login == login }
             ?.let { user -> Maybe.just(user) }
             ?: Maybe.error(Exception("Выбран несуществующий пользователь."))
 
-    override fun repoInfo(login: String, name: String): Maybe<GitHubRepository> {
-        TODO("Not yet implemented")
-    }
+    override fun fetchRepositoryInfo(
+        login: String,
+        repositoryName: String
+    ): Maybe<GitHubRepository> =
+        repositories
+            .firstOrNull { repository ->
+                (repository.login == login)
+                    .and(repository.name == repositoryName)
+            }
+            ?.let { repository -> Maybe.just(repository) }
+            ?: Maybe.error(Exception("Выбран несуществующий репозиторий."))
 
-    override fun repoList(login: String): Observable<List<GitHubRepository>> {
-        TODO("Not yet implemented")
-    }
+    override fun fetchUserRepositoriesByLogin(login: String): Observable<List<GitHubRepository>> =
+        Observable.just(repositories.filter { repository -> repository.login == login })
 }

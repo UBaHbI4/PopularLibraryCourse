@@ -27,4 +27,10 @@ interface IRepositoryView : MvpView {
      * @param message Текст сообщения
      */
     fun showMessage(message: String)
+
+    /**
+     * Установить заголовок
+     * @param title Текст заголовка
+     */
+    fun setTitle(title: String)
 }

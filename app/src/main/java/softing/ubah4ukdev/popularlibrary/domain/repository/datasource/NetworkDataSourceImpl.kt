@@ -5,6 +5,7 @@ import io.reactivex.Single
 import softing.ubah4ukdev.popularlibrary.domain.api.GitHubApi
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
+import javax.inject.Inject
 
 /****
 Project PopularLibrary
@@ -15,18 +16,23 @@ Created by Ivan Sheynmaer
 2021.08.17
 v1.0
  */
-class NetworkDataSourceImpl(private val gitHubApi: GitHubApi) : INetworkDataSource {
+class NetworkDataSourceImpl @Inject constructor(
+    private val gitHubApi: GitHubApi
+) : INetworkDataSource {
 
-    override fun users(): Single<List<GithubUser>> =
-        gitHubApi.users()
+    override fun fetchUsers(): Single<List<GithubUser>> =
+        gitHubApi.fetchUsers()
 
-    override fun userById(login: String): Maybe<GithubUser> =
-        gitHubApi.userById(login)
+    override fun fetchUserByLogin(login: String): Maybe<GithubUser> =
+        gitHubApi.fetchUserByLogin(login)
             .toMaybe()
 
-    override fun repoList(login: String): Single<List<GitHubRepository>> =
-        gitHubApi.repoList(login)
+    override fun fetchUserRepositories(login: String): Single<List<GitHubRepository>> =
+        gitHubApi.fetchUserRepositories(login)
 
-    override fun repoInfo(login: String, name: String): Single<GitHubRepository> =
-        gitHubApi.repoInfo(login, name)
+    override fun fetchRepositoryInfo(
+        login: String,
+        repositoryName: String
+    ): Single<GitHubRepository> =
+        gitHubApi.fetchRepositoryInfo(login, repositoryName)
 }

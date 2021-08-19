@@ -31,17 +31,17 @@ interface ICacheDataSource: INetworkDataSource {
 
     /**
      * Сохранить список репозиториев
-     * @param repos Список репозиториев
+     * @param repositories Список репозиториев
      * @param login Логин пользователя
      * @return List of GitHubRepository
      */
-    fun retainRepositories(repos: List<GitHubRepository>, login:String): Single<List<GitHubRepository>>
+    fun retainRepositories(repositories: List<GitHubRepository>, login:String): Single<List<GitHubRepository>>
 
     /**
      * Обновить репозиторий
-     * @param repo Репозиторий
+     * @param reposizoty Репозиторий
      * @param login Логин пользователя
      * @return GitHubRepository
      */
-    fun retainRepository(repo: GitHubRepository, login:String, name:String): Single<GitHubRepository>
+    fun retainRepository(reposizoty: GitHubRepository, login:String, repositoryName:String): Single<GitHubRepository>
 }

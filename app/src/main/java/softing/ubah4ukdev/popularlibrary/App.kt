@@ -1,9 +1,10 @@
 package softing.ubah4ukdev.popularlibrary
 
-import android.app.Application
-import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import softing.ubah4ukdev.popularlibrary.domain.di.DaggerApplicationComponent
+import softing.ubah4ukdev.popularlibrary.scheduler.DefaultSchedulers
 
 /****
 Project PopularLibrary
@@ -14,24 +15,18 @@ Created by Ivan Sheynmaer
 2021.08.05
 v1.0
  */
-class App : Application() {
+class App : DaggerApplication() {
 
-    object ContextHolder {
-        lateinit var context: Context
-    }
+    override fun applicationInjector(): AndroidInjector<App> =
+        DaggerApplicationComponent
+            .builder()
+            .withContext(applicationContext)
+            .apply {
+                val cicerone = Cicerone.create()
 
-    companion object Navigation {
-
-        private val cicerone: Cicerone<Router> by lazy {
-            Cicerone.create()
-        }
-
-        val navigatorHolder = cicerone.getNavigatorHolder()
-        val router = cicerone.router
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        ContextHolder.context = applicationContext
-    }
+                withNavigatorHolder(cicerone.getNavigatorHolder())
+                withRouter(cicerone.router)
+                withSchedulers(DefaultSchedulers())
+            }
+            .build()
 }

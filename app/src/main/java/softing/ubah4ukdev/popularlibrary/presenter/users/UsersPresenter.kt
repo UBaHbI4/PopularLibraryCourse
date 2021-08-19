@@ -51,7 +51,7 @@ class UsersPresenter(
 
     private fun loadData() {
         repository
-            .users()
+            .fetchUsers()
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe({ users ->
@@ -63,8 +63,7 @@ class UsersPresenter(
             .addTo(disposables)
 
         usersListPresenter.itemClickListener = { itemView ->
-            Log.d("popLibDEBUG", itemView.toString())
-            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].login).create())
+            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].login))
         }
     }
 
@@ -73,8 +72,4 @@ class UsersPresenter(
         disposables.dispose()
     }
 
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
-    }
 }

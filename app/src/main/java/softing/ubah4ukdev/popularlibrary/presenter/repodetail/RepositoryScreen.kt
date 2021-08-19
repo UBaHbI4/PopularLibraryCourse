@@ -1,6 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.presenter.repodetail
 
-import com.github.terrakok.cicerone.Screen
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 
@@ -15,10 +16,8 @@ v1.0
  */
 class RepositoryScreen(
     private val repository: GitHubRepository,
-) {
-    fun create(): Screen = FragmentScreen {
-        RepositoryFragment.newInstance(
-            repository
-        )
-    }
+) : FragmentScreen {
+
+    override fun createFragment(factory: FragmentFactory): Fragment =
+        RepositoryFragment.newInstance(repository)
 }

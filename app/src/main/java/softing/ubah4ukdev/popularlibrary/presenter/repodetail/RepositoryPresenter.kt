@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import moxy.MvpPresenter
-import softing.ubah4ukdev.popularlibrary.App.Navigation.router
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.repository.IRepository
-import softing.ubah4ukdev.popularlibrary.presenter.user.UserScreen
 import softing.ubah4ukdev.popularlibrary.scheduler.Schedulers
 
 /****
@@ -20,7 +18,7 @@ Created by Ivan Sheynmaer
 v1.0
  */
 class RepositoryPresenter(
-    private val repoItem: GitHubRepository,
+    private val gitHubRepository: GitHubRepository,
     private val schedulers: Schedulers,
     private val repository: IRepository
 ) :
@@ -31,7 +29,7 @@ class RepositoryPresenter(
     @SuppressLint("CheckResult")
     override fun onFirstViewAttach() {
         repository
-            .repoInfo(repoItem.login, repoItem.name)
+            .fetchRepositoryInfo(gitHubRepository.login, gitHubRepository.name)
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
@@ -45,8 +43,7 @@ class RepositoryPresenter(
         disposables.dispose()
     }
 
-    fun backPressed(): Boolean {
-        router.replaceScreen(UserScreen(repoItem.login).create())
-        return true
+    fun setTitle() {
+        viewState.setTitle(gitHubRepository.name.uppercase())
     }
 }

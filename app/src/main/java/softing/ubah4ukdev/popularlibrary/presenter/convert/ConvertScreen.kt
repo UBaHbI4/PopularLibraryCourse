@@ -1,6 +1,7 @@
 package softing.ubah4ukdev.popularlibrary.presenter.convert
 
-import com.github.terrakok.cicerone.Screen
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 /****
@@ -12,7 +13,8 @@ Created by Ivan Sheynmaer
 2021.08.14
 v1.0
  */
-class ConvertScreen() {
+class ConvertScreen() : FragmentScreen {
 
-    fun create(): Screen = FragmentScreen { ConvertFragment.newInstance() }
+    override fun createFragment(factory: FragmentFactory): Fragment =
+        ConvertFragment.newInstance()
 }

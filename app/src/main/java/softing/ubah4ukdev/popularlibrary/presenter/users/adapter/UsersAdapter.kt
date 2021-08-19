@@ -43,8 +43,8 @@ class UsersAdapter(val presenter: IUserListPresenter) :
         override var pos = -1
 
         override fun setUser(login: String, avatar: String) = with(vb) {
-            tvLogin.text = login
-            tvLogin.setStartDrawableCircleImageFromUri(avatar)
+            userLogin.text = login
+            userLogin.setStartDrawableCircleImageFromUri(avatar)
         }
     }
 }

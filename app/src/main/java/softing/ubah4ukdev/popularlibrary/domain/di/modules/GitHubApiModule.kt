@@ -1,30 +1,38 @@
-package softing.ubah4ukdev.popularlibrary.domain.api
+package softing.ubah4ukdev.popularlibrary.domain.di.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.Module
+import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import softing.ubah4ukdev.popularlibrary.domain.api.GitHubApi
+import softing.ubah4ukdev.popularlibrary.domain.api.GitHubApiInterceptor
 import softing.ubah4ukdev.populatelibrary.BuildConfig
+import javax.inject.Singleton
 
 /****
 Project PopularLibrary
-Package softing.ubah4ukdev.popularlibrary.domain.api
+Package softing.ubah4ukdev.popularlibrary.domain.di.modules
 
 Created by Ivan Sheynmaer
 
-2021.08.16
+2021.08.19
 v1.0
  */
-object GitHubApiFactory {
+@Module
+class GitHubApiModule {
 
     private val gson: Gson =
         GsonBuilder()
             .create()
 
-    fun create(): GitHubApi =
+    @Singleton
+    @Provides
+    fun provideGitHubApi(): GitHubApi =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(
