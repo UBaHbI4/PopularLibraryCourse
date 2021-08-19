@@ -15,7 +15,7 @@ Created by Ivan Sheynmaer
 2021.08.17
 v1.0
  */
-class NetworkNetworkDataSourceImpl(private val gitHubApi: GitHubApi) : INetworkDataSource {
+class NetworkDataSourceImpl(private val gitHubApi: GitHubApi) : INetworkDataSource {
 
     override fun users(): Single<List<GithubUser>> =
         gitHubApi.users()

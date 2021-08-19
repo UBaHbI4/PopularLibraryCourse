@@ -4,7 +4,7 @@ import io.reactivex.Maybe
 import io.reactivex.Observable
 import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
-import softing.ubah4ukdev.popularlibrary.domain.repository.datasource.ICacheNetworkDataSource
+import softing.ubah4ukdev.popularlibrary.domain.repository.datasource.ICacheDataSource
 import softing.ubah4ukdev.popularlibrary.domain.repository.datasource.INetworkDataSource
 
 /****
@@ -18,7 +18,7 @@ v1.0
  */
 class RepositoryImpl(
     private val cloud: INetworkDataSource,
-    private val ICache: ICacheNetworkDataSource,
+    private val ICache: ICacheDataSource,
 ) : IRepository {
 
     override fun users(): Observable<List<GithubUser>> =

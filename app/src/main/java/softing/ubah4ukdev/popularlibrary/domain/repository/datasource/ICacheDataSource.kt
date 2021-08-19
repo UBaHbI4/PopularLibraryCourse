@@ -13,7 +13,7 @@ Created by Ivan Sheynmaer
 2021.08.17
 v1.0
  */
-interface ICacheNetworkDataSource: INetworkDataSource {
+interface ICacheDataSource: INetworkDataSource {
 
     /**
      * Сохранить список пользователей
