@@ -13,5 +13,5 @@ v1.0
  */
 object NetworkDataSourceFactory {
 
-    fun create(): INetworkDataSource = NetworkNetworkDataSourceImpl(GitHubApiFactory.create())
+    fun create(): INetworkDataSource = NetworkDataSourceImpl(GitHubApiFactory.create())
 }

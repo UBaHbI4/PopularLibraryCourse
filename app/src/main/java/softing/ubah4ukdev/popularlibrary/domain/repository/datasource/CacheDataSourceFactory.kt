@@ -14,8 +14,8 @@ v1.0
  */
 object CacheDataSourceFactory {
 
-    fun create(): ICacheNetworkDataSource =
-        CacheNetworkDataSourceImpl(
+    fun create(): ICacheDataSource =
+        CacheDataSourceImpl(
             GitHubStorageFactory.create(ContextHolder.context)
         )
 }

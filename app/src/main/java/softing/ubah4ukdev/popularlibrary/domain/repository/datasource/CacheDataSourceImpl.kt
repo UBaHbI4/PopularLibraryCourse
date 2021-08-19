@@ -15,8 +15,8 @@ Created by Ivan Sheynmaer
 2021.08.17
 v1.0
  */
-class CacheNetworkDataSourceImpl(private val gitHubStorage: GitHubStorage) :
-    ICacheNetworkDataSource {
+class CacheDataSourceImpl(private val gitHubStorage: GitHubStorage) :
+    ICacheDataSource {
 
     override fun retainUsers(users: List<GithubUser>): Single<List<GithubUser>> =
         gitHubStorage
