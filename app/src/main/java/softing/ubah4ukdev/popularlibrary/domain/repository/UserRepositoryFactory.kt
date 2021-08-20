@@ -13,6 +13,5 @@ v1.0
  */
 object UserRepositoryFactory {
 
-    //fun create(): IUsersRepository = MockUsersRepositoryImpl()
     fun create(): IUsersRepository = GitHubUsersRepositoryImpl(GitHubApiFactory.create())
 }

@@ -2,7 +2,7 @@ package softing.ubah4ukdev.popularlibrary.presenter.user
 
 /****
 Project PopularLibrary
-Package softing.ubah4ukdev.popularlibrary.ui.adapter
+Package softing.ubah4ukdev.popularlibrary.presenter.users.adapter
 
 Created by Ivan Sheynmaer
 

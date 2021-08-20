@@ -1,4 +1,4 @@
-package softing.ubah4ukdev.popularlibrary.ui.adapter
+package softing.ubah4ukdev.popularlibrary.presenter.users.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import softing.ubah4ukdev.populatelibrary.databinding.UserBinding
 
 /****
 Project PopularLibrary
-Package softing.ubah4ukdev.popularlibrary.ui.adapter
+Package softing.ubah4ukdev.popularlibrary.presenter.users.adapter
 
 Created by Ivan Sheynmaer
 

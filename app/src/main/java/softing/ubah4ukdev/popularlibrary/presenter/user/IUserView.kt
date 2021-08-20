@@ -2,6 +2,7 @@ package softing.ubah4ukdev.popularlibrary.presenter.user
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.SingleState
+import softing.ubah4ukdev.popularlibrary.domain.model.GitHubRepository
 import softing.ubah4ukdev.popularlibrary.domain.model.GithubUser
 
 /****
@@ -19,4 +20,6 @@ interface IUserView : MvpView {
     fun showUser(user: GithubUser)
 
     fun showMessage(message: String)
+
+    fun showRepo(repos: List<GitHubRepository>)
 }

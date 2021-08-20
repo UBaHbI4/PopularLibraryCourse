@@ -11,14 +11,14 @@ import softing.ubah4ukdev.popularlibrary.App
 import softing.ubah4ukdev.popularlibrary.domain.repository.UserRepositoryFactory
 import softing.ubah4ukdev.popularlibrary.scheduler.SchedulerFactory
 import softing.ubah4ukdev.popularlibrary.ui.IBackButtonListener
-import softing.ubah4ukdev.popularlibrary.ui.adapter.UsersAdapter
+import softing.ubah4ukdev.popularlibrary.presenter.users.adapter.UsersAdapter
 import softing.ubah4ukdev.popularlibrary.ui.extensions.showSnakeBar
 import softing.ubah4ukdev.populatelibrary.R
 import softing.ubah4ukdev.populatelibrary.databinding.FragmentUsersBinding
 
 /****
 Project PopularLibrary
-Package softing.ubah4ukdev.popularlibrary.ui.adapter
+Package softing.ubah4ukdev.popularlibrary.presenter.users.adapter
 
 Created by Ivan Sheynmaer
 
